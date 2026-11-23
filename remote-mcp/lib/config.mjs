@@ -1,5 +1,13 @@
 export const resource = "https://mcp.vanillate.id/mcp";
 export const scope = "hub.read";
+// CMS advertises OIDC scopes. The API permission is a separate signed token claim.
+export function consentScope(issuer) {
+  return issuer === "https://lvfwopnvvqncopvathop.supabase.co/auth/v1" ? "openid" : scope;
+}
+export function grantsHubRead(payload, issuer) {
+  if (consentScope(issuer) === "openid") return payload.hub_permission === scope;
+  return typeof payload.scope === "string" && payload.scope.split(" ").includes(scope);
+}
 export const projects = Object.freeze({
   "vanillate-bot": {name:"Bot utama · Vanillate.ID", credential:"HUB_BOT_READER"},
   "vanillate-web": {name:"Website · vanillate.id", credential:"HUB_WEB_READER"}

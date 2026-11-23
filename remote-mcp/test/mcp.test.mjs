@@ -41,3 +41,11 @@ test("authenticated SDK session has two read tools and isolates project credenti
     assert.equal(calls,1);
   }finally{await client.close();http.closeAllConnections();await new Promise(done=>http.close(done));}
 });
+
+test("CMS login scope alone cannot grant access to Hub", async()=>{
+  const {consentScope,grantsHubRead}=await import("../lib/config.mjs");
+  const cms="https://lvfwopnvvqncopvathop.supabase.co/auth/v1";
+  assert.equal(consentScope(cms),"openid");
+  assert.equal(grantsHubRead({scope:"openid hub.read"},cms),false);
+  assert.equal(grantsHubRead({hub_permission:"hub.read"},cms),true);
+});
