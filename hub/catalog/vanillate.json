@@ -1,0 +1,1004 @@
+[
+  {
+    "id": "vanillate-ecosystem",
+    "name": "Ekosistem Vanillate",
+    "nodes": [
+      {
+        "id": "bot",
+        "name": "Bot utama · Vanillate.ID",
+        "kind": "repository",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/package.json",
+        "summary": "Bot Discord utama untuk game, sosial, dan konfigurasi server.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "web",
+        "name": "Website · vanillate.id",
+        "kind": "repository",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/README.md",
+        "summary": "Website utama Vanillate Studio, termasuk produk, CMS, dan dashboard server Discord.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "media",
+        "name": "Aset media",
+        "kind": "repository",
+        "locator": "https://github.com/Ndyspleasure/database-media-web",
+        "source": "https://github.com/Ndyspleasure/database-media-web/blob/6d0593b1aa7d9864994cdc9b1649b12b7d6164b0/README.md",
+        "summary": "Repositori aset GIF dan gambar untuk proyek Vanillate.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "match",
+        "name": "Bot kedua · Match",
+        "kind": "repository",
+        "locator": "https://github.com/Ndyspleasure/AnonymousBotDiscord",
+        "source": "https://github.com/Ndyspleasure/AnonymousBotDiscord/blob/7aca8a95f9771d3d0b96b21a9bc3e25b514b0c24/README.md",
+        "summary": "Bot khusus percakapan anonim 1–1 melalui DM.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "guild",
+        "name": "Dashboard Discord",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/DASHBOARD-SERVER.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/DASHBOARD-SERVER.md",
+        "summary": "Admin mengatur server di website. Bot menjalankan konfigurasi.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "cms",
+        "name": "CMS baca data bot",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/CMS-BACA-DATABASE-BOT.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/CMS-BACA-DATABASE-BOT.md",
+        "summary": "CMS mengambil ringkasan Game, Sosial, dan Server Hub sesuai permintaan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "story",
+        "name": "Media Vanillate Story",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/game/story/media.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/game/story/media.js",
+        "summary": "URL bawaan aset cerita mengikat versi repo media lewat SHA.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "social",
+        "name": "Social Hub → Match",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/social/hub/views.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/social/hub/views.js",
+        "summary": "Social Hub menautkan pemasangan Match. Match menangani percakapan DM.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "matchflow",
+        "name": "Pencocokan DM",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/AnonymousBotDiscord/blob/7aca8a95f9771d3d0b96b21a9bc3e25b514b0c24/src/matching.js",
+        "source": "https://github.com/Ndyspleasure/AnonymousBotDiscord/blob/7aca8a95f9771d3d0b96b21a9bc3e25b514b0c24/src/matching.js",
+        "summary": "Logika pencocokan pemain milik bot kedua.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "assets",
+        "name": "Koleksi gambar cerita",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/database-media-web/tree/6d0593b1aa7d9864994cdc9b1649b12b7d6164b0/story-media",
+        "source": "https://github.com/Ndyspleasure/database-media-web/tree/6d0593b1aa7d9864994cdc9b1649b12b7d6164b0/story-media",
+        "summary": "Direktori aset cerita di branch main repo media.",
+        "authority": "TECHNICAL_OBSERVATION"
+      }
+    ],
+    "links": [
+      {
+        "origin": "web",
+        "target": "guild",
+        "kind": "documented_by",
+        "evidence": "guild"
+      },
+      {
+        "origin": "web",
+        "target": "bot",
+        "kind": "configures",
+        "evidence": "guild"
+      },
+      {
+        "origin": "web",
+        "target": "cms",
+        "kind": "documented_by",
+        "evidence": "cms"
+      },
+      {
+        "origin": "web",
+        "target": "bot",
+        "kind": "reads_on_demand",
+        "evidence": "cms"
+      },
+      {
+        "origin": "bot",
+        "target": "story",
+        "kind": "contains",
+        "evidence": "story"
+      },
+      {
+        "origin": "bot",
+        "target": "media",
+        "kind": "uses_story_assets",
+        "evidence": "story"
+      },
+      {
+        "origin": "bot",
+        "target": "social",
+        "kind": "contains",
+        "evidence": "social"
+      },
+      {
+        "origin": "bot",
+        "target": "match",
+        "kind": "links_installation",
+        "evidence": "social"
+      },
+      {
+        "origin": "match",
+        "target": "matchflow",
+        "kind": "contains",
+        "evidence": "matchflow"
+      },
+      {
+        "origin": "media",
+        "target": "assets",
+        "kind": "contains",
+        "evidence": "assets"
+      }
+    ]
+  },
+  {
+    "id": "vanillate-bot",
+    "name": "Bot utama · Vanillate.ID",
+    "nodes": [
+      {
+        "id": "bot",
+        "name": "Bot utama · Vanillate.ID",
+        "kind": "repository",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/package.json",
+        "summary": "Bot Discord utama untuk game, sosial, dan konfigurasi server.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-game",
+        "name": "Game Hub",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/game",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/game",
+        "summary": "Sistem game dan aturan cooldown.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-GAME_ARCHITECTURE.md",
+        "name": "GAME_ARCHITECTURE.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/GAME_ARCHITECTURE.md",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/GAME_ARCHITECTURE.md",
+        "summary": "Rujukan Game Hub pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "test-gameCooldown.test.js",
+        "name": "gameCooldown.test.js",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/gameCooldown.test.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/gameCooldown.test.js",
+        "summary": "Rujukan Game Hub pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-game-vdungeon",
+        "name": "Vanillate Dungeon",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/game/vdungeon",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/game/vdungeon",
+        "summary": "Definisi konten, combat, loot, party dan penyimpanan dungeon.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-vanillate-dungeon-teknis.md",
+        "name": "vanillate-dungeon-teknis.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/vanillate-dungeon-teknis.md",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/vanillate-dungeon-teknis.md",
+        "summary": "Rujukan Vanillate Dungeon pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "test-vdungeonCombat.test.js",
+        "name": "vdungeonCombat.test.js",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/vdungeonCombat.test.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/vdungeonCombat.test.js",
+        "summary": "Rujukan Vanillate Dungeon pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-game-story",
+        "name": "Vanillate Story",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/game/story",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/game/story",
+        "summary": "Konten naratif dan resolusi URL aset cerita.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-story.md",
+        "name": "story.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/story.md",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/story.md",
+        "summary": "Rujukan Vanillate Story pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-game-story-media.js",
+        "name": "media.js",
+        "kind": "file",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/game/story/media.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/game/story/media.js",
+        "summary": "Rujukan Vanillate Story pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-dashboard",
+        "name": "Dashboard server",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/dashboard",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/dashboard",
+        "summary": "Eksekusi konfigurasi server dan sinkronisasi dengan dashboard website.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-dashboard-sync.md",
+        "name": "dashboard-sync.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/dashboard-sync.md",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/dashboard-sync.md",
+        "summary": "Rujukan Dashboard server pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "test-dashboardSync.test.js",
+        "name": "dashboardSync.test.js",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/dashboardSync.test.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/dashboardSync.test.js",
+        "summary": "Rujukan Dashboard server pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-cms",
+        "name": "CMS bot",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/cms",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/cms",
+        "summary": "Registry dan handler CMS serta penyusunan snapshot.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-panel-developer-cms.md",
+        "name": "panel-developer-cms.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/panel-developer-cms.md",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/panel-developer-cms.md",
+        "summary": "Rujukan CMS bot pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "test-cmsSnapshots.test.js",
+        "name": "cmsSnapshots.test.js",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/cmsSnapshots.test.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/cmsSnapshots.test.js",
+        "summary": "Rujukan CMS bot pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-wallet",
+        "name": "Dompet pemain",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/wallet",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/wallet",
+        "summary": "Ledger, aturan transaksi dan tampilan dompet pemain.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-wallet.md",
+        "name": "wallet.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/wallet.md",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/wallet.md",
+        "summary": "Rujukan Dompet pemain pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "test-walletLedger.test.js",
+        "name": "walletLedger.test.js",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/walletLedger.test.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/walletLedger.test.js",
+        "summary": "Rujukan Dompet pemain pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-social",
+        "name": "Social Hub",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/social",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/social",
+        "summary": "Registrasi fitur sosial dan tautan instalasi Vanillate Match.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-social-hub-views.js",
+        "name": "views.js",
+        "kind": "file",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/social/hub/views.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/social/hub/views.js",
+        "summary": "Rujukan Social Hub pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-social-registry.js",
+        "name": "registry.js",
+        "kind": "file",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/social/registry.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/social/registry.js",
+        "summary": "Rujukan Social Hub pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-database",
+        "name": "Database bot",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/database",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/database",
+        "summary": "Akses data game dan prosedur migrasi database bot.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-database-game.md",
+        "name": "database-game.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/database-game.md",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/database-game.md",
+        "summary": "Rujukan Database bot pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "scripts-db-migrate.js",
+        "name": "migrate.js",
+        "kind": "file",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/scripts/db/migrate.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/scripts/db/migrate.js",
+        "summary": "Rujukan Database bot pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-support",
+        "name": "Dukungan pemain",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/support",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/tree/f8fe82ae93910605bfd65c9d46d23cf2791bc493/src/support",
+        "summary": "Alur dukungan dan pengujian dukungan berbantuan AI.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-support-ai.md",
+        "name": "support-ai.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/support-ai.md",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/docs/support-ai.md",
+        "summary": "Rujukan Dukungan pemain pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "test-supportAi.test.js",
+        "name": "supportAi.test.js",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/supportAi.test.js",
+        "source": "https://github.com/Ndyspleasure/Vanillate.ID/blob/f8fe82ae93910605bfd65c9d46d23cf2791bc493/test/supportAi.test.js",
+        "summary": "Rujukan Dukungan pemain pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      }
+    ],
+    "links": [
+      {
+        "origin": "src-game",
+        "target": "bot",
+        "kind": "implemented_in",
+        "evidence": "src-game"
+      },
+      {
+        "origin": "src-game",
+        "target": "docs-GAME_ARCHITECTURE.md",
+        "kind": "documented_by",
+        "evidence": "docs-GAME_ARCHITECTURE.md"
+      },
+      {
+        "origin": "src-game",
+        "target": "test-gameCooldown.test.js",
+        "kind": "tested_by",
+        "evidence": "test-gameCooldown.test.js"
+      },
+      {
+        "origin": "src-game-vdungeon",
+        "target": "bot",
+        "kind": "implemented_in",
+        "evidence": "src-game-vdungeon"
+      },
+      {
+        "origin": "src-game-vdungeon",
+        "target": "docs-vanillate-dungeon-teknis.md",
+        "kind": "documented_by",
+        "evidence": "docs-vanillate-dungeon-teknis.md"
+      },
+      {
+        "origin": "src-game-vdungeon",
+        "target": "test-vdungeonCombat.test.js",
+        "kind": "tested_by",
+        "evidence": "test-vdungeonCombat.test.js"
+      },
+      {
+        "origin": "src-game-story",
+        "target": "bot",
+        "kind": "implemented_in",
+        "evidence": "src-game-story"
+      },
+      {
+        "origin": "src-game-story",
+        "target": "docs-story.md",
+        "kind": "documented_by",
+        "evidence": "docs-story.md"
+      },
+      {
+        "origin": "src-game-story",
+        "target": "src-game-story-media.js",
+        "kind": "related_source",
+        "evidence": "src-game-story-media.js"
+      },
+      {
+        "origin": "src-dashboard",
+        "target": "bot",
+        "kind": "implemented_in",
+        "evidence": "src-dashboard"
+      },
+      {
+        "origin": "src-dashboard",
+        "target": "docs-dashboard-sync.md",
+        "kind": "documented_by",
+        "evidence": "docs-dashboard-sync.md"
+      },
+      {
+        "origin": "src-dashboard",
+        "target": "test-dashboardSync.test.js",
+        "kind": "tested_by",
+        "evidence": "test-dashboardSync.test.js"
+      },
+      {
+        "origin": "src-cms",
+        "target": "bot",
+        "kind": "implemented_in",
+        "evidence": "src-cms"
+      },
+      {
+        "origin": "src-cms",
+        "target": "docs-panel-developer-cms.md",
+        "kind": "documented_by",
+        "evidence": "docs-panel-developer-cms.md"
+      },
+      {
+        "origin": "src-cms",
+        "target": "test-cmsSnapshots.test.js",
+        "kind": "tested_by",
+        "evidence": "test-cmsSnapshots.test.js"
+      },
+      {
+        "origin": "src-wallet",
+        "target": "bot",
+        "kind": "implemented_in",
+        "evidence": "src-wallet"
+      },
+      {
+        "origin": "src-wallet",
+        "target": "docs-wallet.md",
+        "kind": "documented_by",
+        "evidence": "docs-wallet.md"
+      },
+      {
+        "origin": "src-wallet",
+        "target": "test-walletLedger.test.js",
+        "kind": "tested_by",
+        "evidence": "test-walletLedger.test.js"
+      },
+      {
+        "origin": "src-social",
+        "target": "bot",
+        "kind": "implemented_in",
+        "evidence": "src-social"
+      },
+      {
+        "origin": "src-social",
+        "target": "src-social-hub-views.js",
+        "kind": "related_source",
+        "evidence": "src-social-hub-views.js"
+      },
+      {
+        "origin": "src-social",
+        "target": "src-social-registry.js",
+        "kind": "related_source",
+        "evidence": "src-social-registry.js"
+      },
+      {
+        "origin": "src-database",
+        "target": "bot",
+        "kind": "implemented_in",
+        "evidence": "src-database"
+      },
+      {
+        "origin": "src-database",
+        "target": "docs-database-game.md",
+        "kind": "documented_by",
+        "evidence": "docs-database-game.md"
+      },
+      {
+        "origin": "src-database",
+        "target": "scripts-db-migrate.js",
+        "kind": "related_source",
+        "evidence": "scripts-db-migrate.js"
+      },
+      {
+        "origin": "src-support",
+        "target": "bot",
+        "kind": "implemented_in",
+        "evidence": "src-support"
+      },
+      {
+        "origin": "src-support",
+        "target": "docs-support-ai.md",
+        "kind": "documented_by",
+        "evidence": "docs-support-ai.md"
+      },
+      {
+        "origin": "src-support",
+        "target": "test-supportAi.test.js",
+        "kind": "tested_by",
+        "evidence": "test-supportAi.test.js"
+      }
+    ]
+  },
+  {
+    "id": "vanillate-web",
+    "name": "Website · vanillate.id",
+    "nodes": [
+      {
+        "id": "web",
+        "name": "Website · vanillate.id",
+        "kind": "repository",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/README.md",
+        "summary": "Website utama Vanillate Studio, termasuk produk, CMS, dan dashboard server Discord.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-pages",
+        "name": "Situs publik",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/pages",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/pages",
+        "summary": "Halaman Astro untuk produk, FAQ, blog, partnership dan portal.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "README.md",
+        "name": "README.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/README.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/README.md",
+        "summary": "Rujukan Situs publik pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "astro.config.mjs",
+        "name": "astro.config.mjs",
+        "kind": "file",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/astro.config.mjs",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/astro.config.mjs",
+        "summary": "Rujukan Situs publik pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-data-bot-registry.ts",
+        "name": "Katalog bot",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/data/bot-registry.ts",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/data/bot-registry.ts",
+        "summary": "Metadata bot, identitas produk dan sumber data sinkronisasi.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-AUTO-SYNC-DATA.md",
+        "name": "AUTO-SYNC-DATA.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/AUTO-SYNC-DATA.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/AUTO-SYNC-DATA.md",
+        "summary": "Rujukan Katalog bot pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "tests-bot-slug.test.ts",
+        "name": "bot-slug.test.ts",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/bot-slug.test.ts",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/bot-slug.test.ts",
+        "summary": "Rujukan Katalog bot pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-lib-dashboard",
+        "name": "Dashboard server",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/lib/dashboard",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/lib/dashboard",
+        "summary": "Pemilihan server, pengaturan fitur dan pembacaan status.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-DASHBOARD-SERVER.md",
+        "name": "DASHBOARD-SERVER.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/DASHBOARD-SERVER.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/DASHBOARD-SERVER.md",
+        "summary": "Rujukan Dashboard server pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "tests-dashboard-model.test.ts",
+        "name": "dashboard-model.test.ts",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/dashboard-model.test.ts",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/dashboard-model.test.ts",
+        "summary": "Rujukan Dashboard server pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-lib-cms-read",
+        "name": "CMS baca bot",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/lib/cms-read",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/lib/cms-read",
+        "summary": "Pembacaan ringkasan bot sesuai permintaan halaman CMS.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-CMS-BACA-DATABASE-BOT.md",
+        "name": "CMS-BACA-DATABASE-BOT.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/CMS-BACA-DATABASE-BOT.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/CMS-BACA-DATABASE-BOT.md",
+        "summary": "Rujukan CMS baca bot pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "tests-cms-read.test.ts",
+        "name": "cms-read.test.ts",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/cms-read.test.ts",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/cms-read.test.ts",
+        "summary": "Rujukan CMS baca bot pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-lib-dev-panel",
+        "name": "Panel developer",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/lib/dev-panel",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/lib/dev-panel",
+        "summary": "Model panel developer dan pengelolaan fitur bot.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-DEVELOPER-PANEL.md",
+        "name": "DEVELOPER-PANEL.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/DEVELOPER-PANEL.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/DEVELOPER-PANEL.md",
+        "summary": "Rujukan Panel developer pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "tests-dev-panel-model.test.ts",
+        "name": "dev-panel-model.test.ts",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/dev-panel-model.test.ts",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/dev-panel-model.test.ts",
+        "summary": "Rujukan Panel developer pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-lib-blog",
+        "name": "Blog & editorial",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/lib/blog",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/lib/blog",
+        "summary": "Model, editor, halaman penulis dan pengujian admin blog.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-BLOG.md",
+        "name": "BLOG.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/BLOG.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/BLOG.md",
+        "summary": "Rujukan Blog & editorial pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "tests-blog-admin.test.ts",
+        "name": "blog-admin.test.ts",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/blog-admin.test.ts",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/blog-admin.test.ts",
+        "summary": "Rujukan Blog & editorial pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "src-lib-partner",
+        "name": "Portal partner",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/lib/partner",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/src/lib/partner",
+        "summary": "Model dan halaman portal partner.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-PARTNER-PORTAL.md",
+        "name": "PARTNER-PORTAL.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/PARTNER-PORTAL.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/PARTNER-PORTAL.md",
+        "summary": "Rujukan Portal partner pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "tests-partner-model.test.ts",
+        "name": "partner-model.test.ts",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/partner-model.test.ts",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/tests/partner-model.test.ts",
+        "summary": "Rujukan Portal partner pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "supabase",
+        "name": "Skema CMS",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/supabase",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/tree/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/supabase",
+        "summary": "Definisi SQL dan pengujian otorisasi admin.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-ADMIN-CMS.md",
+        "name": "ADMIN-CMS.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/ADMIN-CMS.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/ADMIN-CMS.md",
+        "summary": "Rujukan Skema CMS pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "scripts-test-admin-auth-sql.sh",
+        "name": "test-admin-auth-sql.sh",
+        "kind": "test",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/scripts/test-admin-auth-sql.sh",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/scripts/test-admin-auth-sql.sh",
+        "summary": "Rujukan Skema CMS pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "github-workflows-deploy.yml",
+        "name": "Publikasi website",
+        "kind": "component",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/.github/workflows/deploy.yml",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/.github/workflows/deploy.yml",
+        "summary": "Pipeline GitHub Actions untuk build, sinkronisasi dan publikasi.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "docs-PIPELINE-TERBIT.md",
+        "name": "PIPELINE-TERBIT.md",
+        "kind": "document",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/PIPELINE-TERBIT.md",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/docs/PIPELINE-TERBIT.md",
+        "summary": "Rujukan Publikasi website pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      },
+      {
+        "id": "github-workflows-sync-data.yml",
+        "name": "sync-data.yml",
+        "kind": "file",
+        "locator": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/.github/workflows/sync-data.yml",
+        "source": "https://github.com/Ndyspleasure/vanillate-website/blob/eea87987cf4ae5f2901ee4ffb65fbd7dc23c59ce/.github/workflows/sync-data.yml",
+        "summary": "Rujukan Publikasi website pada revisi yang dipetakan.",
+        "authority": "TECHNICAL_OBSERVATION"
+      }
+    ],
+    "links": [
+      {
+        "origin": "src-pages",
+        "target": "web",
+        "kind": "implemented_in",
+        "evidence": "src-pages"
+      },
+      {
+        "origin": "src-pages",
+        "target": "README.md",
+        "kind": "documented_by",
+        "evidence": "README.md"
+      },
+      {
+        "origin": "src-pages",
+        "target": "astro.config.mjs",
+        "kind": "related_source",
+        "evidence": "astro.config.mjs"
+      },
+      {
+        "origin": "src-data-bot-registry.ts",
+        "target": "web",
+        "kind": "implemented_in",
+        "evidence": "src-data-bot-registry.ts"
+      },
+      {
+        "origin": "src-data-bot-registry.ts",
+        "target": "docs-AUTO-SYNC-DATA.md",
+        "kind": "documented_by",
+        "evidence": "docs-AUTO-SYNC-DATA.md"
+      },
+      {
+        "origin": "src-data-bot-registry.ts",
+        "target": "tests-bot-slug.test.ts",
+        "kind": "tested_by",
+        "evidence": "tests-bot-slug.test.ts"
+      },
+      {
+        "origin": "src-lib-dashboard",
+        "target": "web",
+        "kind": "implemented_in",
+        "evidence": "src-lib-dashboard"
+      },
+      {
+        "origin": "src-lib-dashboard",
+        "target": "docs-DASHBOARD-SERVER.md",
+        "kind": "documented_by",
+        "evidence": "docs-DASHBOARD-SERVER.md"
+      },
+      {
+        "origin": "src-lib-dashboard",
+        "target": "tests-dashboard-model.test.ts",
+        "kind": "tested_by",
+        "evidence": "tests-dashboard-model.test.ts"
+      },
+      {
+        "origin": "src-lib-cms-read",
+        "target": "web",
+        "kind": "implemented_in",
+        "evidence": "src-lib-cms-read"
+      },
+      {
+        "origin": "src-lib-cms-read",
+        "target": "docs-CMS-BACA-DATABASE-BOT.md",
+        "kind": "documented_by",
+        "evidence": "docs-CMS-BACA-DATABASE-BOT.md"
+      },
+      {
+        "origin": "src-lib-cms-read",
+        "target": "tests-cms-read.test.ts",
+        "kind": "tested_by",
+        "evidence": "tests-cms-read.test.ts"
+      },
+      {
+        "origin": "src-lib-dev-panel",
+        "target": "web",
+        "kind": "implemented_in",
+        "evidence": "src-lib-dev-panel"
+      },
+      {
+        "origin": "src-lib-dev-panel",
+        "target": "docs-DEVELOPER-PANEL.md",
+        "kind": "documented_by",
+        "evidence": "docs-DEVELOPER-PANEL.md"
+      },
+      {
+        "origin": "src-lib-dev-panel",
+        "target": "tests-dev-panel-model.test.ts",
+        "kind": "tested_by",
+        "evidence": "tests-dev-panel-model.test.ts"
+      },
+      {
+        "origin": "src-lib-blog",
+        "target": "web",
+        "kind": "implemented_in",
+        "evidence": "src-lib-blog"
+      },
+      {
+        "origin": "src-lib-blog",
+        "target": "docs-BLOG.md",
+        "kind": "documented_by",
+        "evidence": "docs-BLOG.md"
+      },
+      {
+        "origin": "src-lib-blog",
+        "target": "tests-blog-admin.test.ts",
+        "kind": "tested_by",
+        "evidence": "tests-blog-admin.test.ts"
+      },
+      {
+        "origin": "src-lib-partner",
+        "target": "web",
+        "kind": "implemented_in",
+        "evidence": "src-lib-partner"
+      },
+      {
+        "origin": "src-lib-partner",
+        "target": "docs-PARTNER-PORTAL.md",
+        "kind": "documented_by",
+        "evidence": "docs-PARTNER-PORTAL.md"
+      },
+      {
+        "origin": "src-lib-partner",
+        "target": "tests-partner-model.test.ts",
+        "kind": "tested_by",
+        "evidence": "tests-partner-model.test.ts"
+      },
+      {
+        "origin": "supabase",
+        "target": "web",
+        "kind": "implemented_in",
+        "evidence": "supabase"
+      },
+      {
+        "origin": "supabase",
+        "target": "docs-ADMIN-CMS.md",
+        "kind": "documented_by",
+        "evidence": "docs-ADMIN-CMS.md"
+      },
+      {
+        "origin": "supabase",
+        "target": "scripts-test-admin-auth-sql.sh",
+        "kind": "tested_by",
+        "evidence": "scripts-test-admin-auth-sql.sh"
+      },
+      {
+        "origin": "github-workflows-deploy.yml",
+        "target": "web",
+        "kind": "implemented_in",
+        "evidence": "github-workflows-deploy.yml"
+      },
+      {
+        "origin": "github-workflows-deploy.yml",
+        "target": "docs-PIPELINE-TERBIT.md",
+        "kind": "documented_by",
+        "evidence": "docs-PIPELINE-TERBIT.md"
+      },
+      {
+        "origin": "github-workflows-deploy.yml",
+        "target": "github-workflows-sync-data.yml",
+        "kind": "related_source",
+        "evidence": "github-workflows-sync-data.yml"
+      }
+    ]
+  }
+]

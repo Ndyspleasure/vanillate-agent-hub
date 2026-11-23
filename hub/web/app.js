@@ -90,7 +90,14 @@ function renderDetail(){
   const meta=html("dl",undefined,"meta");
   const fields=[["Jenis",n.kind],["Lokasi",n.locator],["Sumber",n.source],["Kewenangan",n.authority]];
   if(n.observed)fields.push(["Dicatat",new Date(n.observed*1000).toLocaleString("id-ID")],["Kesegaran",n.changed?"Perlu ditinjau":"Sesuai registrasi"]);
-  for(const [k,v] of fields)meta.append(html("dt",k),html("dd",v));panel.append(meta);
+  for(const [k,v] of fields){
+    const dd=html("dd",v);
+    if((k==="Lokasi"||k==="Sumber") && /^https:\/\//.test(v)){
+      const a=html("a",v);a.href=v;a.target="_blank";a.rel="noopener noreferrer";dd.replaceChildren(a);
+    }
+    meta.append(html("dt",k),dd);
+  }
+  panel.append(meta);
   const links=connected(n.id);panel.append(html("small","RELASI ("+links.length+")"));
   links.forEach(l=>{const target=l.origin===n.id?l.target:l.origin, peer=data.nodes.find(item=>item.id===target);
     const btn=html("button",undefined,"linkrow");btn.append(html("b",peer?.name||target),html("span",l.kind));btn.title="Bukti: "+l.evidence;
@@ -99,20 +106,21 @@ function renderDetail(){
 function render(){
   $("ncount").textContent=data.nodes.length;$("lcount").textContent=data.links.length;$("dcount").textContent=data.nodes.filter(n=>group(n.kind)==="amber").length;
   $("mapTab").setAttribute("aria-pressed",!asList);$("listTab").setAttribute("aria-pressed",asList);
-  $("list").hidden=!asList;$("plot").hidden=asList;
-  if(asList){const list=$("list");list.replaceChildren();data.nodes.forEach(n=>{const btn=html("button",n.name);btn.append(html("span",n.kind));btn.onclick=()=>{selection=center=n.id;asList=false;render()};list.append(btn)});
-    if(!data.nodes.length)list.append(html("p","Belum ada sumber daya."));}
+  $("filterWrap").hidden=!asList;$("list").hidden=!asList;$("plot").hidden=asList;
+  if(asList){const list=$("list");list.replaceChildren();const term=$("filter").value.trim().toLowerCase();data.nodes.filter(n=>[n.name,n.id,n.summary,n.locator].some(v=>v.toLowerCase().includes(term))).forEach(n=>{const btn=html("button",n.name);btn.append(html("span",n.kind));btn.onclick=()=>{selection=center=n.id;asList=false;render()};list.append(btn)});
+    if(!list.childElementCount)list.append(html("p","Tidak ada sumber daya yang cocok."));}
   else renderGraph();
   renderDetail();
   $("status").textContent=!asList&&data.nodes.length>7?"Graf menampilkan maksimal tujuh sumber daya. Pilih sumber daya lain melalui Daftar.":"";
 }
 function setMap(map){
-  data=map;const degrees=new Map(data.nodes.map(n=>[n.id,0]));
+  $("filter").value="";data=map;const degrees=new Map(data.nodes.map(n=>[n.id,0]));
   data.links.forEach(l=>{degrees.set(l.origin,degrees.get(l.origin)+1);degrees.set(l.target,degrees.get(l.target)+1)});
   center=selection=[...degrees].sort((a,b)=>b[1]-a[1])[0]?.[0];render();
 }
 function options(projects){$("projects").replaceChildren(...projects.map(p=>new Option(p.name,p.id)))}
-function reset(){revision++;token="";options([{name:demo.name,id:"demo"}]);$("mode").textContent="Data contoh";$("connect").textContent="Hubungkan Hub";setMap(demo)}
+let offlineMaps=[{...demo,id:"demo"}];
+function reset(){revision++;token="";options(offlineMaps);$("mode").textContent=offlineMaps.length>1?"Snapshot repositori":"Data contoh";$("connect").textContent="Hubungkan Hub";setMap(offlineMaps[0])}
 async function api(path,credential){
   const res=await fetch(path,{headers:{Authorization:"Bearer "+credential},cache:"no-store",redirect:"error"});
   if(!res.ok)throw Error(res.status===401?"Token tidak berlaku.":res.status===403?"Token tidak memiliki akses baca.":"Hub gagal memuat data ("+res.status+").");
@@ -129,8 +137,15 @@ $("form").onsubmit=async e=>{
     if(!projects.length)$("status").textContent="Belum ada proyek yang dapat diakses.";
   }catch(err){if(rev===revision)$("error").textContent=err.message}
 };
-$("projects").onchange=async()=>{if(!token)return;const rev=++revision;setMap({nodes:[],links:[]});
+$("projects").onchange=async()=>{if(!token){setMap(offlineMaps.find(m=>m.id===$("projects").value));return}const rev=++revision;setMap({nodes:[],links:[]});
   try{const map=await api("/projects/"+encodeURIComponent($("projects").value)+"/map",token);if(rev===revision)setMap(map)}
   catch(err){if(rev===revision)$("status").textContent=err.message}};
 $("mapTab").onclick=()=>{asList=false;render()};$("listTab").onclick=()=>{asList=true;render()};
 reset();
+
+$("filter").oninput=render;
+if(document.body.dataset.catalog==="true"){
+  fetch("./vanillate.json").then(r=>{if(!r.ok)throw Error();return r.json()}).then(maps=>{
+    offlineMaps=maps;reset();
+  }).catch(()=>{$("status").textContent="Snapshot repositori gagal dimuat. Muat ulang halaman untuk mencoba lagi."});
+}
