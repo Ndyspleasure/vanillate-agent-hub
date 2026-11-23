@@ -37,4 +37,6 @@ python -m hub.seed
 
 Impor mengisi proyek `vanillate-ecosystem`, `vanillate-bot`, dan `vanillate-web` dalam satu transaksi. Impor ulang pada data identik tidak menambah entri. Konflik dengan data yang sudah ada membatalkan seluruh transaksi untuk ditinjau Founder. Setelah impor, sambungkan dashboard lokal dengan token yang memiliki scope terkait. MCP dapat mencari modul melalui get_project_context pada HUB_PROJECT yang sesuai.
 
+Target produksi Atlas kini Vercel, sesuai [keputusan Founder](adr/0002-vercel-personal-computer.md). Pratinjau Sites berasal dari tahap sebelumnya.
+
 Hostname yang dipilih untuk **Atlas Agent Hub** adalah `dashboard.vanillate.id`. Dashboard pengaturan server Discord milik website tetap berada di `vanillate.id/dashboard`. Atlas privat berisi snapshot; koneksi API lokal tetap memakai konfigurasi Hub. MCP berjalan melalui stdio.

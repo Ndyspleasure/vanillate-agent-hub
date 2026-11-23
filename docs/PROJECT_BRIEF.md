@@ -3,7 +3,7 @@
 
 **Repository:** https://github.com/Ndyspleasure/vanillate-agent-hub  
 **Target branch:** `main`  
-**Document version:** 0.2 — Revised Direction  
+**Document version:** 0.3 — Founder hosting and persistence decision<br>
 **Date:** 23 November 2026  
 **Project owner:** Founder / Vanillate Studio  
 **Status:** Foundational project brief; implementation decisions remain subject to documented technical evaluation.
@@ -277,7 +277,7 @@ Therefore:
 - Jobs must be idempotent where possible.
 - Failures must not silently discard events.
 
-Prefer an authenticated outbound connection from the local adapter to Agent Hub. Do not expose the local Ollama API publicly without a compelling, secured design.
+Prefer an authenticated outbound connection from the local adapter to Agent Hub. Keep the Ollama API private on loopback as required by the Founder.
 
 ### 10.2 Resource constraints
 
@@ -383,7 +383,7 @@ Prefer read-only retrieval permissions for ordinary agent access. Restrict submi
 
 Use a dedicated Agent Hub database. Do not mix it with production databases for Vanillate.ID, the CMS, or player/game data.
 
-Evaluate PostgreSQL as the default candidate because the domain requires relational integrity, event tracking, version history, querying, and auditability. Document the decision and trade-offs.
+The Founder selected dedicated SQLite on the personal computer as the single source of truth. The original PostgreSQL evaluation is retained in ADR 0001. A future database change requires Founder approval.
 
 Evaluate entities such as:
 - Agents and agent connections.
@@ -409,33 +409,11 @@ Consider referential integrity, indexes, migration discipline, idempotency, rete
 
 ## 16. Infrastructure and deployment
 
-Conceptual deployment split:
+**Founder decision, 23 November 2026.** GitHub deploys the dashboard/frontend to Vercel. Vercel may run lightweight stateless APIs. The personal computer owns SQLite, the local backend, background worker, Local AI Indexer, Ollama and local MCP when required. Store SQLite on persistent local disk, outside Git and Vercel deployment storage. Implement automatic scheduled backups, tested restore and crash recovery.
 
-**VPS/server**
-- Agent Hub backend/API.
-- Dedicated database.
-- Durable event/job queue.
-- MCP endpoint.
-- Dashboard.
-- Audit and observability.
+Claude Code retains its MCP client, approved hooks and official provider connectors. Remote access requires encrypted, authenticated communication initiated from the PC or through an approved secure bridge. Keep SQLite and Ollama private. Important events must survive PC downtime, including events awaiting first delivery. The durable handoff for remote sources requires a Founder decision.
 
-**Personal computer**
-- Ollama runtime.
-- Local AI adapter/indexer worker.
-- Future Virtual Player runtime.
-
-**Claude Code environment**
-- Claude Code.
-- MCP client.
-- Approved hooks/event emitter.
-- Project repositories and official provider connectors.
-
-Potential hostnames (not approved or finalized):
-- `agent.vanillate.id`
-- `mcp.vanillate.id`
-- `api.vanillate.id`
-
-Do not hard-code these domains. Keep deployment topology and environment-specific configuration externalized.
+Cloudflare Pages, Workers, D1, Queues, R2 and the production Vanillate bot VPS are excluded. The Atlas hostname is dashboard.vanillate.id; production cutover and provider-specific DNS are separate operational steps. Environment configuration stays external. See the [official decision, design and acceptance criteria](adr/0002-vercel-personal-computer.md).
 
 ## 17. Security requirements
 
@@ -591,7 +569,7 @@ Before finalizing the design, evaluate:
 11. Provenance and hallucination controls for the technical map.
 12. Enforcement of Founder authority.
 13. Security and permission boundaries.
-14. VPS deployment and operational requirements.
+14. Vercel frontend deployment, personal-computer operations and recovery during offline periods.
 15. How new providers and agents can be added without redesigning the core.
 
 Do not use every technology mentioned just because it is listed. Choose based on evidence and MVP requirements. Verify time-sensitive technical behavior against current official documentation.

@@ -3,3 +3,13 @@ __pycache__/
 .env
 state/
 .ruff_cache/
+data/
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+backups/

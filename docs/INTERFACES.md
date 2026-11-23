@@ -56,7 +56,7 @@ python -m hub.worker --once
 # Omit --once for continuous serial polling.
 ```
 
-For a VPS installation, issue the worker credential on the Hub host, deliver only that scoped token to the personal computer and set HUB_URL to the authenticated HTTPS service. Keep Ollama bound to loopback. Default Ollama URL is http://127.0.0.1:11434. Worker logs record error types only. When the model is absent or its tags endpoint is offline, the worker leaves queued events alone. A crash after claim releases the work on lease expiry (180 seconds). Subsequent polling updates exhausted jobs to failed. The Founder can inspect the attempts and explicitly requeue. Generation has a 90-second HTTP inactivity timeout.
+Issue the worker credential on the personal computer and point HUB_URL at the loopback Hub API on that machine. The proposed Vercel bridge serves a separate frontend path. See [ADR 0002](adr/0002-vercel-personal-computer.md). Keep Ollama bound to loopback. Default Ollama URL is http://127.0.0.1:11434. Worker logs record error types only. When the model is absent or its tags endpoint is offline, the worker leaves queued events alone. A crash after claim releases the work on lease expiry (180 seconds). Subsequent polling updates exhausted jobs to failed. The Founder can inspect the attempts and explicitly requeue. Generation has a 90-second HTTP inactivity timeout.
 
 Benchmark on the actual machine with one job at a time. Record model tag/digest, quantization, CPU/GPU, peak RAM, model load time, warm generation latency, unsupported claims in output and timeout rate. Repeat on representative metadata before selecting a default. The automated fixture does not establish local inference quality.
 

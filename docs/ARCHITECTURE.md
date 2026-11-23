@@ -1,5 +1,7 @@
 # Architecture
 
+The approved production target splits Vercel frontend delivery from the personal computer that owns SQLite, workers, AI and the local backend. The diagrams below describe the implemented local slice. See [ADR 0002 for the target topology, offline contract and remaining implementation gaps](adr/0002-vercel-personal-computer.md).
+
 The Founder sets requirements and owns strategic decisions. The brief assigns engineering to Claude Code, gives Ollama an advisory role and treats GPT as an external consultant. Each AI keeps its official provider connectors. The Hub stores knowledge about those systems.
 
 ```mermaid

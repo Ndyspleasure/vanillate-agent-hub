@@ -1,5 +1,7 @@
 # ADR 0001 · First project mapping slice
 
+The hosting and database direction is now governed by [Founder decision ADR 0002](0002-vercel-personal-computer.md). The PostgreSQL comparison below records the original evaluation.
+
 **Status** Implementer decisions for the local MVP. Founder-approved constraints come from the project brief.
 
 1. **Runtime and database.** Use one Python 3.12 FastAPI process, Pydantic request contracts, SQLite WAL, and a separate outbound Python worker. SQLite gives local developers atomic event/job/audit writes, foreign keys, schema versions and online backups with no database service. PostgreSQL offers better concurrent writers, server identities and multi-instance operation. Revisit before scaling to multiple Hub processes, using network storage, or exceeding acceptable write contention. A broker would add a failure boundary without improving this single-host transaction.

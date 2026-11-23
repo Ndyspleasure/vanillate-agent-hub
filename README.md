@@ -2,6 +2,8 @@
 
 A project context and intelligence index for Vanillate Studio. Register a component, link it to its repository and specification, record a version change, and retrieve the evidence through HTTP or MCP. A local Ollama worker can propose a derived summary. The Founder reviews it before it appears in agent context.
 
+Production architecture is governed by the [Founder decision on Vercel and the personal computer](docs/adr/0002-vercel-personal-computer.md). The commands below run the existing local MVP. GitHub-to-Vercel deployment, a secure bridge, durable offline ingress and scheduled backups are planned work.
+
 ## Run locally
 
 Use Python 3.12 on Linux or macOS. Run the following from the repository root. Keep the database on a local disk.
