@@ -32,13 +32,20 @@ def initialize():
         if version == 0:
             schema = Path(__file__).with_name("schema.sql").read_text()
             db.executescript("BEGIN IMMEDIATE;\n" + schema + "\nCOMMIT;")
-        elif version != 1:
+        if version in (0, 1):
+            migration = (
+                Path(__file__).parent / "migrations" / "002_resource_metadata.sql"
+            )
+            db.executescript("BEGIN IMMEDIATE;\n" + migration.read_text() + "\nCOMMIT;")
+        elif version != 2:
             raise RuntimeError("Unknown database version")
 
 
 def audit(db, project, actor, action, reference):
-    db.execute("INSERT INTO audit(project,actor,action,reference,at) VALUES(?,?,?,?,?)",
-               (project, actor, action, str(reference), now()))
+    db.execute(
+        "INSERT INTO audit(project,actor,action,reference,at) VALUES(?,?,?,?,?)",
+        (project, actor, action, str(reference), now()),
+    )
 
 
 def digest(token):
@@ -48,10 +55,15 @@ def digest(token):
 def issue(identity, role, scope):
     token = secrets.token_urlsafe(40)
     with database() as db:
-        existing = db.execute("SELECT role,scope FROM identities WHERE id=?", (identity,)).fetchone()
+        existing = db.execute(
+            "SELECT role,scope FROM identities WHERE id=?", (identity,)
+        ).fetchone()
         if existing and tuple(existing) != (role, scope):
             raise ValueError("Use a new identity for a different role or scope")
-        db.execute("""INSERT INTO identities VALUES(?,?,?,?) ON CONFLICT(id)
-                      DO UPDATE SET digest=excluded.digest""", (identity, digest(token), role, scope))
+        db.execute(
+            """INSERT INTO identities VALUES(?,?,?,?) ON CONFLICT(id)
+                      DO UPDATE SET digest=excluded.digest""",
+            (identity, digest(token), role, scope),
+        )
         audit(db, scope, "local-admin", "issue", identity)
     return token

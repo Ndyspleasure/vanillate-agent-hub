@@ -5,11 +5,22 @@ from urllib.parse import urlsplit
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, field_validator
 
 Id = Annotated[str, StringConstraints(pattern=r"^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,79}$")]
-Short = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=140)]
-Summary = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=600)]
-Authority = Literal["USER_DECISION", "APPROVED_SPECIFICATION", "IMPLEMENTATION_PLAN",
-                    "OLLAMA_OBSERVATION", "NON_BINDING_SUGGESTION", "VERIFIED_DEFECT",
-                    "TECHNICAL_OBSERVATION", "NEEDS_FOUNDER_REVIEW"]
+Short = Annotated[
+    str, StringConstraints(strip_whitespace=True, min_length=1, max_length=140)
+]
+Summary = Annotated[
+    str, StringConstraints(strip_whitespace=True, min_length=1, max_length=600)
+]
+Authority = Literal[
+    "USER_DECISION",
+    "APPROVED_SPECIFICATION",
+    "IMPLEMENTATION_PLAN",
+    "OLLAMA_OBSERVATION",
+    "NON_BINDING_SUGGESTION",
+    "VERIFIED_DEFECT",
+    "TECHNICAL_OBSERVATION",
+    "NEEDS_FOUNDER_REVIEW",
+]
 
 
 class Input(BaseModel):
@@ -20,7 +31,8 @@ class Input(BaseModel):
     def metadata_only(cls, value):
         if isinstance(value, str) and re.search(
             r"(?i)(-----BEGIN .*PRIVATE KEY|\bBearer\s+|gh[pousr]_|github_pat_|sk-[a-zA-Z0-9]{12}|"
-            r"(?:password|token|secret|api[_-]?key)\s*[:=]|[\x00-\x1f])", value
+            r"(?:password|token|secret|api[_-]?key)\s*[:=]|[\x00-\x1f])",
+            value,
         ):
             raise ValueError("Expected public metadata")
         return value
@@ -36,16 +48,28 @@ class Resource(Project):
     locator: Annotated[str, Field(min_length=1, max_length=350)]
     summary: Summary
     source: Annotated[str, Field(min_length=1, max_length=350)]
+    provider: Id | None = None
+    environment: Id | None = None
     authority: Authority = "TECHNICAL_OBSERVATION"
 
     @field_validator("locator", "source")
     @classmethod
     def safe_ref(cls, value):
         parts = urlsplit(value)
-        if (parts.scheme and (parts.scheme != "https" or not parts.hostname)
-                or parts.netloc and not parts.scheme or parts.username is not None
-                or "?" in value or "#" in value or "\\" in value or any(c.isspace() for c in value)):
-            raise ValueError("Use an HTTPS or path reference without credentials or parameters")
+        if (
+            parts.scheme
+            and (parts.scheme != "https" or not parts.hostname)
+            or parts.netloc
+            and not parts.scheme
+            or parts.username is not None
+            or "?" in value
+            or "#" in value
+            or "\\" in value
+            or any(c.isspace() for c in value)
+        ):
+            raise ValueError(
+                "Use an HTTPS or path reference without credentials or parameters"
+            )
         return value
 
 
@@ -66,7 +90,9 @@ class Event(Input):
 class Result(Input):
     lease: Id
     summary: Summary
-    model: Annotated[str, StringConstraints(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,99}$")]
+    model: Annotated[
+        str, StringConstraints(pattern=r"^[A-Za-z0-9][A-Za-z0-9_.:/-]{0,99}$")
+    ]
 
 
 class Review(Input):

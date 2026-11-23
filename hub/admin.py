@@ -22,8 +22,10 @@ def main():
         print(issue(args.identity, args.role, args.scope))
     else:
         with database() as db:
-            row = db.execute("UPDATE identities SET digest=? WHERE id=? RETURNING scope",
-                             (secrets.token_hex(48), args.identity)).fetchone()
+            row = db.execute(
+                "UPDATE identities SET digest=? WHERE id=? RETURNING scope",
+                (secrets.token_hex(48), args.identity),
+            ).fetchone()
             if not row:
                 parser.error("Unknown identity")
             audit(db, row[0], "local-admin", "revoke", args.identity)
