@@ -102,6 +102,35 @@ class HubTest(unittest.TestCase):
         self.assertEqual(len(result.json()["nodes"]), 3)
         self.assertEqual(len(result.json()["links"]), 2)
 
+    def test_remembered_reader_and_rotation(self):
+        with TestClient(app, base_url="http://127.0.0.1") as browser:
+            key = issue("browser", "founder", "demo")
+            response = browser.post(
+                "/session?remember=true", headers={"Authorization": "Bearer " + key}
+            )
+            self.assertEqual(response.status_code, 200)
+            self.assertIn("HttpOnly", response.headers["set-cookie"])
+            self.assertIn("Max-Age=2592000", response.headers["set-cookie"])
+            self.assertEqual(browser.get(self.p + "/map").status_code, 200)
+            self.assertEqual(browser.get("/projects/other/map").status_code, 403)
+            self.assertEqual(
+                browser.post(self.p + "/resources", json={}).status_code, 401
+            )
+            self.assertEqual(browser.get(self.p + "/audit").status_code, 403)
+            issue("browser", "founder", "demo")
+            self.assertEqual(browser.get(self.p + "/map").status_code, 401)
+
+    def test_git_observation_replay_and_revert(self):
+        from hub.watch import observe
+
+        for head in ["a" * 40, "b" * 40, "b" * 40, "a" * 40]:
+            observe("demo", "repo", "a" * 40, head)
+        snapshot = self.r.get(self.p + "/map").json()
+        self.assertEqual(
+            [r["version"] for r in snapshot["events"]], ["a" * 40, "b" * 40]
+        )
+        self.assertEqual(len(self.r.get(self.p + "/jobs").json()), 2)
+
     def test_vertical_slice(self):
         event = self.event().json()["event"]
         initialize()

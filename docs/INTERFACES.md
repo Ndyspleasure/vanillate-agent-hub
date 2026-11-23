@@ -81,3 +81,19 @@ The local authenticated GET /api/computer-status returns the local service marke
 A valid local response means online. Gateway 502/503/504 or upstream timeout means offline from the probe's perspective. Missing configuration, auth errors and unverifiable responses mean unknown. The static viewer uses the Vercel route without a browser credential; on the local viewer the authenticated request goes directly to the Hub. The last observed online time is scoped to the page session. A loaded map may remain on screen during an outage. Read the Git fallback instructions in AGENTS.md. The bridge and Vercel deployment require separate setup per ADR 0002.
 
 If the MCP stdio process runs on a reachable agent machine, get_project_context automatically checks Git on a connection failure, timeout or gateway 502/503/504. Results identify context_source=git_snapshot, mapped commits, current heads and matching catalog resources. Authentication/authorization errors continue to the caller. For an MCP process on the unavailable PC use the CLI or official connector on the agent machine. Each Git check needs independent GitHub access.
+
+## Live local dashboard and unattended readers
+
+The local UI exchanges an API credential for an opaque HttpOnly, SameSite=Strict, read-only cookie. Remembering a private device sets a 30-day expiry; the default session cookie survives reloads and has a server-side one-day limit. HTTPS uses Secure cookies; development HTTP is limited to loopback. Logout removes the session. Credential rotation/revocation invalidates its sessions. An authenticated project event stream checks the project audit cursor and session validity every second. On changes and reconnects the dashboard fetches the latest map and recent events. The existing hosted static snapshot has no local event stream.
+
+The local backend checks the registered, curated GitHub repositories on main once per cycle (60 seconds between scans). Git must be available in the PM2 account's PATH with read access to the repositories. Each newly observed tip produces one source-backed event and indexing job per registered project/resource. Multiple pushes between checks can collapse to one observed tip. While the PC is unavailable the next scan compares with the last stored tip. Git failures are reported in backend logs. Git changes mark the repository for review; Founder review still governs publication of AI inferences.
+
+On the Windows Hub PC, with Claude Code CLI and the Hub venv installed, run in PowerShell:
+
+```powershell
+.\scripts\claude-reader.ps1 -Setup -Project vanillate-bot
+.\scripts\claude-reader.ps1 -Setup -Project vanillate-web
+claude mcp list
+```
+
+Each setup issues a separate project-scoped Reader identity and registers an MCP launcher at Claude user scope. Windows DPAPI protects the credential in the user's LocalAppData; the launcher supplies it only to the MCP process. Repeating setup rotates the credential; an existing registration can continue using the same launcher. Restart Claude Code to reload servers. Use hub.admin revoke claude-vanillate-bot to revoke that reader. Other machines and agents need their own credentials and authorized transport.

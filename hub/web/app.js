@@ -48,7 +48,7 @@ const entries=[
 ];
 const demo={name:"Vanillate Agent Hub",nodes:entries.map(([id,name,kind,locator,summary])=>({id,name,kind,locator,summary,source:"docs/ARCHITECTURE.md",authority:id==="brief"?"APPROVED_SPECIFICATION":"TECHNICAL_OBSERVATION"})),
 links:[["api","repo","implemented_in"],["api","db","uses"],["api","brief","documented_by"],["mcp","api","calls"],["worker","api","calls"],["api","adr","documented_by"]].map(([origin,target,kind])=>({origin,target,kind,evidence:"brief"}))};
-let data=demo, selection="api", asList=false, token="", revision=0, center="api";
+let data=demo, selection="api", asList=false, signedIn=false, revision=0, center="api";
 function connected(id){return data.links.filter(l=>l.origin===id||l.target===id)}
 function selectNode(id){selection=id;render()}
 function renderGraph(){
@@ -120,26 +120,78 @@ function setMap(map){
 }
 function options(projects){$("projects").replaceChildren(...projects.map(p=>new Option(p.name,p.id)))}
 let offlineMaps=[{...demo,id:"demo"}];
-function reset(){revision++;token="";options(offlineMaps);$("mode").textContent=offlineMaps.length>1?"Snapshot repositori":"Data contoh";$("connect").textContent="Hubungkan Hub";setMap(offlineMaps[0]);checkComputer()}
-async function api(path,credential){
-  const res=await fetch(path,{headers:{Authorization:"Bearer "+credential},cache:"no-store",redirect:"error"});
-  if(!res.ok)throw Error(res.status===401?"Token tidak berlaku.":res.status===403?"Token tidak memiliki akses baca.":"Hub gagal memuat data ("+res.status+").");
+let feed=null;
+function closeFeed(){if(feed)feed.close();feed=null}
+function reset(){
+  closeFeed();revision++;signedIn=false;$("recent").hidden=true;
+  options(offlineMaps);$("mode").textContent=offlineMaps.length>1?"Snapshot repositori":"Data contoh";
+  $("connect").textContent="Hubungkan Hub";setMap(offlineMaps[0]);checkComputer();
+}
+async function api(path,init={}){
+  const res=await fetch(path,{cache:"no-store",redirect:"error",...init});
+  if(!res.ok){
+    const error=Error(res.status===401?"Sesi atau token tidak berlaku.":res.status===403?"Akses ditolak.":"Hub gagal memuat data ("+res.status+").");
+    error.status=res.status;throw error;
+  }
   return res.json();
 }
+function showEvents(events){
+  $("recent").hidden=false;
+  $("eventList").replaceChildren(...events.map(e=>html("li",
+    new Date(e.observed*1000).toLocaleString("id-ID")+" · "+e.resource+" · "+e.kind+" · "+e.version.slice(0,12))));
+  if(!events.length)$("eventList").append(html("li","Belum ada event."));
+}
+function openProject(){
+  closeFeed();const generation=++revision;
+  const id=$("projects").value;setMap({nodes:[],links:[]});showEvents([]);
+  if(!id){$("mode").textContent="Belum ada proyek";return}
+  const base="/projects/"+encodeURIComponent(id);
+  let first=true, sequence=0;
+  feed=new EventSource(base+"/stream");
+  feed.onmessage=async()=>{
+    const seq=++sequence;
+    try{
+      const map=await api(base+"/map");
+      if(generation!==revision||seq!==sequence)return;
+      if(first || !map.nodes.some(n=>n.id===center) || !map.nodes.some(n=>n.id===selection))setMap(map);
+      else{data=map;render()}
+      showEvents(map.events);first=false;$("mode").textContent="Sinkron langsung";
+    }catch(err){if(generation===revision){if(err.status===401)reset();$("status").textContent=err.message}}
+  };
+  feed.addEventListener("expired",()=>{if(generation===revision)reset()});
+  feed.onerror=async()=>{
+    if(generation!==revision)return;
+    $("mode").textContent="Sinkronisasi terputus";
+    try{await api("/api/computer-status")}catch(err){if(err.status===401 && generation===revision)reset()}
+  };
+}
+async function resume(){
+  const generation=revision;
+  const projects=await api("/projects");
+  if(generation!==revision)return;
+  signedIn=true;options(projects);$("connect").textContent="Putuskan";
+  $("mode").textContent="Menyinkronkan";openProject();checkComputer();
+}
 $("connect").hidden=document.body.dataset.live!=="true";
-$("connect").onclick=()=>{if(token){reset();return}$("error").textContent="";$("login").showModal();$("token").focus()};
-$("cancel").onclick=()=>$("login").close();
-$("login").onclose=()=>{$("token").value="";revision++};
-$("form").onsubmit=async e=>{
-  e.preventDefault();const key=$("token").value.trim(), rev=++revision;
-  try{const projects=await api("/projects",key);const map=projects.length?await api("/projects/"+encodeURIComponent(projects[0].id)+"/map",key):{nodes:[],links:[]};
-    if(rev!==revision)return;token=key;checkComputer();options(projects);setMap(map);$("mode").textContent="Hub terhubung";$("connect").textContent="Putuskan";$("login").close();
-    if(!projects.length)$("status").textContent="Belum ada proyek yang dapat diakses.";
-  }catch(err){if(rev===revision)$("error").textContent=err.message}
+$("connect").onclick=async()=>{
+  if(signedIn){
+    try{await api("/session",{method:"DELETE"});reset()}
+    catch(err){if(err.status===401)reset();else $("status").textContent=err.message}
+    return;
+  }
+  $("error").textContent="";$("login").showModal();$("token").focus();
 };
-$("projects").onchange=async()=>{if(!token){setMap(offlineMaps.find(m=>m.id===$("projects").value));return}const rev=++revision;setMap({nodes:[],links:[]});
-  try{const map=await api("/projects/"+encodeURIComponent($("projects").value)+"/map",token);if(rev===revision)setMap(map)}
-  catch(err){if(rev===revision)$("status").textContent=err.message}};
+$("cancel").onclick=()=>$("login").close();
+$("login").onclose=()=>{$("token").value=""};
+$("form").onsubmit=async e=>{
+  e.preventDefault();
+  try{
+    await api("/session?remember="+$("remember").checked,{method:"POST",
+      headers:{Authorization:"Bearer "+$("token").value.trim()}});
+    await resume();$("login").close();
+  }catch(err){$("error").textContent=err.message}
+};
+$("projects").onchange=()=>{if(signedIn)openProject();else setMap(offlineMaps.find(m=>m.id===$("projects").value))};
 $("mapTab").onclick=()=>{asList=false;render()};$("listTab").onclick=()=>{asList=true;render()};
 let probeSequence=0;
 let lastOnline=null;
@@ -147,10 +199,10 @@ async function checkComputer(){
   const sequence=++probeSequence;
   const local=document.body.dataset.live==="true";
   let state="unknown";
-  if(!local || token){
+  if(!local || signedIn){
     try{
       const response=await fetch("/api/computer-status",{
-        headers:local?{Authorization:"Bearer "+token}:{},cache:"no-store",
+        cache:"no-store",
         redirect:"error",signal:AbortSignal.timeout(6000)
       });
       if(response.ok){
@@ -173,6 +225,9 @@ setInterval(()=>{if(!document.hidden)checkComputer()},30000);
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)checkComputer()});
 
 reset();
+if(document.body.dataset.live==="true"){
+  resume().catch(err=>{if(err.status!==401)$("status").textContent=err.message});
+}
 
 $("filter").oninput=render;
 if(document.body.dataset.catalog==="true"){

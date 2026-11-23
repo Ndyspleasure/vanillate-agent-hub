@@ -53,4 +53,11 @@ def snapshot(project):
                 (project,),
             )
         ]
-    return {"name": name["name"], "nodes": nodes, "links": links}
+        events = [
+            dict(r)
+            for r in db.execute(
+                "SELECT resource,kind,version,observed FROM events WHERE project=? ORDER BY id DESC LIMIT 5",
+                (project,),
+            )
+        ]
+    return {"events": events, "name": name["name"], "nodes": nodes, "links": links}

@@ -1,16 +1,17 @@
 """Single-instance Hub API. One transaction owns each domain mutation and its audit."""
 
+import asyncio
 import secrets
 import sqlite3
 import time
 from collections import deque
-from contextlib import asynccontextmanager
+from contextlib import asynccontextmanager, suppress
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.responses import JSONResponse, RedirectResponse, StreamingResponse
 
-from . import dashboard
+from . import dashboard, sessions, watch
 
 from .models import Event, Id, Link, Project, Resource, Result, Review
 from .store import audit, database, digest, initialize, now
@@ -19,7 +20,13 @@ from .store import audit, database, digest, initialize, now
 @asynccontextmanager
 async def lifespan(app):
     initialize()
-    yield
+    task = asyncio.create_task(watch.monitor())
+    try:
+        yield
+    finally:
+        task.cancel()
+        with suppress(asyncio.CancelledError):
+            await task
 
 
 app = FastAPI(lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
@@ -45,6 +52,13 @@ async def guard(request: Request, call_next):
             if auth.startswith("Bearer ")
             else None
         )
+        if not auth and (
+            request.method == "GET"
+            or (request.method == "DELETE" and request.url.path == "/session")
+        ):
+            cookie = request.cookies.get(sessions.COOKIE)
+            if cookie:
+                identity = sessions.identity(db, cookie)
     if not identity:
         return JSONResponse({"detail": "Authentication required"}, 401)
     request.state.actor = dict(identity)
@@ -344,3 +358,46 @@ def retry(p: Id, event: int, actor=founder):
 @app.get("/projects/{p}/map")
 def project_map(p: Id, actor=read):
     return JSONResponse(dashboard.snapshot(p), headers={"Cache-Control": "no-store"})
+
+
+@app.post("/session")
+def login(request: Request, remember: bool = False, actor=read):
+    return sessions.create(request, remember)
+
+
+@app.delete("/session")
+def logout(request: Request, actor=read):
+    return sessions.logout(request)
+
+
+@app.get("/projects/{p}/stream")
+async def project_stream(p: Id, request: Request, actor=read):
+    cookie = request.cookies.get(sessions.COOKIE)
+    if not cookie:
+        raise HTTPException(403, "Dashboard session required")
+
+    async def updates():
+        previous = None
+        idle = 0
+        while True:
+            with database() as db:
+                identity = sessions.identity(db, cookie)
+                if not identity or identity["scope"] not in ("*", p):
+                    yield "event: expired\ndata: logout\n\n"
+                    return
+                current = db.execute(
+                    "SELECT COALESCE(MAX(id),0) FROM audit WHERE project=?", (p,)
+                ).fetchone()[0]
+            if current != previous:
+                yield f"data: {current}\n\n"
+                previous = current
+            elif idle % 15 == 0:
+                yield ": heartbeat\n\n"
+            idle += 1
+            await asyncio.sleep(1)
+
+    return StreamingResponse(
+        updates(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-store", "X-Accel-Buffering": "no"},
+    )

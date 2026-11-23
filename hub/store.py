@@ -37,7 +37,12 @@ def initialize():
                 Path(__file__).parent / "migrations" / "002_resource_metadata.sql"
             )
             db.executescript("BEGIN IMMEDIATE;\n" + migration.read_text() + "\nCOMMIT;")
-        elif version != 2:
+        if version in (0, 1, 2):
+            migration = (
+                Path(__file__).parent / "migrations" / "003_browser_sessions.sql"
+            )
+            db.executescript("BEGIN IMMEDIATE;\n" + migration.read_text() + "\nCOMMIT;")
+        elif version != 3:
             raise RuntimeError("Unknown database version")
 
 

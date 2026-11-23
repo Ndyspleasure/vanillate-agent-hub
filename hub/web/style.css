@@ -3,3 +3,5 @@
 .meta a{color:var(--mint)}#filterWrap{display:block;padding:12px 20px 0;color:var(--dim)}
 
 #gitGuide{color:var(--mint)}
+
+#remember{width:auto}#recent li{margin:.5rem 0;color:var(--dim);overflow-wrap:anywhere}
