@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101b28"><title>Atlas proyek · Vanillate Agent Hub</title><link rel="stylesheet" href="./style.css"><script defer src="./app.js"></script></head>
+<body data-live="false"><header><div class="bar"><div class="brand"><span class="brandmark" aria-hidden="true">V</span> Vanillate <b>Agent Hub</b></div><a href="https://vanillate.id" rel="noreferrer">vanillate.id ↗</a></div></header>
+<main><div class="crumb">Workspace <span>/</span> Atlas proyek</div>
+<section class="heading"><div><h1>Atlas proyek<span>.</span></h1><p>Jelajahi sumber daya, hubungan teknis, dan bukti dalam satu peta.</p></div><div class="actions"><span id="mode" class="pill">Data contoh</span><button id="connect" hidden>Hubungkan Hub</button></div></section>
+<div class="projectbar"><label for="projects">Proyek aktif</label><select id="projects"></select></div>
+<section class="stats" aria-label="Ringkasan proyek"><div><i data-icon="layers"></i><section><strong id="ncount">0</strong><span>Sumber daya</span></section></div><div><i data-icon="link"></i><section><strong id="lcount">0</strong><span>Relasi tercatat</span></section></div><div><i data-icon="doc"></i><section><strong id="dcount">0</strong><span>Dokumen</span></section></div></section>
+<div class="workspace"><section class="mapcard"><div class="cardhead"><div><small>ATLAS</small><h2>Peta relasi</h2></div><div class="switch"><button id="mapTab" aria-pressed="true">Graf</button><button id="listTab" aria-pressed="false">Daftar</button></div></div>
+<div class="plot" id="plot"><svg id="graph" role="group" aria-label="Graf relasi proyek"></svg></div><div id="list" hidden></div>
+<div class="legend"><span class="mint">Komponen</span><span class="blue">Repositori</span><span class="amber">Dokumen</span><span class="purple">Lainnya</span></div></section>
+<aside><small>INSPEKTOR</small><h2>Detail sumber daya</h2><div id="detail" aria-live="polite"></div></aside></div>
+<p id="status" role="status"></p></main>
+<dialog id="login"><form id="form"><h2>Hubungkan Hub</h2><p>Gunakan token Reader atau Founder. Token disimpan di memori sampai halaman ditutup atau dimuat ulang.</p><label for="token">Token akses</label><input type="password" id="token" autocomplete="off" required><p id="error" role="alert"></p><div class="dialogActions"><button type="button" id="cancel">Batal</button><button>Hubungkan</button></div></form></dialog></body></html>

@@ -89,6 +89,19 @@ class HubTest(unittest.TestCase):
         )
         return self.clients["emitter"].post(self.p + "/events", json=body | overrides)
 
+    def test_dashboard_and_map_scope(self):
+        with TestClient(app) as anonymous:
+            self.assertEqual(anonymous.get("/").status_code, 200)
+            self.assertIn('data-live="true"', anonymous.get("/dashboard/").text)
+            self.assertEqual(anonymous.get("/dashboard/app.js").status_code, 200)
+            self.assertEqual(anonymous.get(self.p + "/map").status_code, 401)
+        self.assertEqual(self.r.get("/projects/other/map").status_code, 403)
+        self.assertEqual(self.w.get(self.p + "/map").status_code, 403)
+        result = self.r.get(self.p + "/map")
+        self.assertEqual(result.headers["cache-control"], "no-store")
+        self.assertEqual(len(result.json()["nodes"]), 3)
+        self.assertEqual(len(result.json()["links"]), 2)
+
     def test_vertical_slice(self):
         event = self.event().json()["event"]
         initialize()

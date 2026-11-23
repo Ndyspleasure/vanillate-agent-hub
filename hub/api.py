@@ -8,7 +8,9 @@ from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
+
+from . import dashboard
 
 from .models import Event, Id, Link, Project, Resource, Result, Review
 from .store import audit, database, digest, initialize, now
@@ -26,6 +28,13 @@ windows = {}
 
 @app.middleware("http")
 async def guard(request: Request, call_next):
+    if request.method == "GET":
+        if request.url.path in ("/", "/dashboard"):
+            return RedirectResponse("/dashboard/")
+        if request.url.path == "/dashboard/":
+            return dashboard.shell()
+        if request.url.path in dashboard.ASSETS:
+            return dashboard.asset(request.url.path)
     auth = request.headers.get("authorization", "")
     with database() as db:
         identity = (
@@ -322,3 +331,8 @@ def retry(p: Id, event: int, actor=founder):
             raise HTTPException(409, "Job is not failed")
         audit(db, p, actor, "job.requeue", event)
     return {"event": event}
+
+
+@app.get("/projects/{p}/map")
+def project_map(p: Id, actor=read):
+    return JSONResponse(dashboard.snapshot(p), headers={"Cache-Control": "no-store"})

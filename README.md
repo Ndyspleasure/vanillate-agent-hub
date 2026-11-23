@@ -46,3 +46,9 @@ Tests use isolated temporary databases, including a real loopback HTTP service a
 - [Architecture decisions and alternatives](docs/adr/0001-initial-slice.md)
 - [API, MCP, Claude hook and Ollama interfaces](docs/INTERFACES.md)
 - [Security, deployment and recovery](docs/OPERATIONS.md)
+
+## Atlas proyek
+
+Open http://127.0.0.1:8000/dashboard/ after starting Uvicorn. The Indonesian dashboard opens with clearly marked example data. Choose **Hubungkan Hub**, enter a project-scoped Reader token, and select a project to see its actual resource graph. Founder tokens also have read access. Browser credentials live only in page memory.
+
+Select a node to inspect its locator, source, authority label and relationships. Select a related resource to move the graph focus. **Daftar** provides access to all resources when the graph neighborhood exceeds seven nodes. The protected `GET /projects/{id}/map` endpoint reads nodes and directed edges in one transaction. The dashboard is read-only. The header links to the official Vanillate domain, https://vanillate.id.
