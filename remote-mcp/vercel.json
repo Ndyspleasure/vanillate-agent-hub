@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    {"source":"/mcp","destination":"/api/mcp"},
+    {"source":"/.well-known/oauth-protected-resource/mcp","destination":"/api/resource"}
+  ],
+  "headers":[{"source":"/(.*)","headers":[{"key":"Cache-Control","value":"private, no-store"}]}]
+}

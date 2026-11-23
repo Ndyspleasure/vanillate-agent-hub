@@ -1,0 +1,16 @@
+{
+  "name": "vanillate-remote-mcp",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "jose": "6.2.18",
+    "zod": "4.6.7"
+  }
+}
