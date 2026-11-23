@@ -56,3 +56,7 @@ Open http://127.0.0.1:8000/dashboard/ after starting Uvicorn. The Indonesian das
 Select a node to inspect its locator, source, authority label and relationships. Select a related resource to move the graph focus. **Daftar** provides access to all resources when the graph neighborhood exceeds seven nodes. The protected `GET /projects/{id}/map` endpoint reads nodes and directed edges in one transaction. The dashboard is read-only. The header links to the official Vanillate domain, https://vanillate.id.
 
 The [Vanillate ecosystem map](docs/VANILLATE_MAP.md) indexes the primary Discord bot and website, their module-level sources, the media repository and the separate Match bot. It includes instructions for importing the pinned catalog using a Founder identity.
+
+## Status komputer dan konteks Git
+
+Dashboard memeriksa keterjangkauan backend setiap 30 detik selama tab terlihat. Di dashboard lokal, hubungkan identitas Reader/Founder untuk mengaktifkan probe. Agen di perangkat lain dapat menggunakan [prosedur pemeriksaan Git](AGENTS.md) saat MCP atau backend tidak tersedia.

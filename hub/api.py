@@ -105,6 +105,14 @@ def rows(db, sql, args):
     return [dict(r) for r in db.execute(sql, args)]
 
 
+@app.get("/api/computer-status")
+def computer_status(actor=read):
+    return JSONResponse(
+        {"service": "vanillate-local-hub", "status": "online", "checked_at": now()},
+        headers={"Cache-Control": "private, no-store"},
+    )
+
+
 @app.post("/projects", status_code=201)
 def project(data: Project, request: Request, actor=founder):
     if request.state.actor["scope"] not in ("*", data.id):
