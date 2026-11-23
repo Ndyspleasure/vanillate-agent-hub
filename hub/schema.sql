@@ -12,7 +12,8 @@ CREATE TABLE links (
  project TEXT, origin TEXT, target TEXT, kind TEXT, evidence TEXT NOT NULL, observed INTEGER NOT NULL,
  PRIMARY KEY(project,origin,target,kind),
  FOREIGN KEY(project,origin) REFERENCES resources(project,id),
- FOREIGN KEY(project,target) REFERENCES resources(project,id)
+ FOREIGN KEY(project,target) REFERENCES resources(project,id),
+ FOREIGN KEY(project,evidence) REFERENCES resources(project,id)
 );
 CREATE TABLE events (
  id INTEGER PRIMARY KEY, project TEXT, resource TEXT, actor TEXT REFERENCES identities,
